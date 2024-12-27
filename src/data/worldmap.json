@@ -1,0 +1,16 @@
+{
+  "type": "Topology",
+  "objects": {
+    "countries": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Polygon",
+          "id": "AFG",
+          "arcs": [[0,1,2,3,4]]
+        }
+      ]
+    }
+  },
+  "arcs": [[[0,0],[100,0],[100,100],[0,100],[0,0]]]
+} 
