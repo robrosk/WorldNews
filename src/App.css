@@ -1,27 +1,63 @@
 .App {
-  width: 100vw;
   height: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
-.map-container {
-  width: 100%;
+.leaflet-container {
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.map-container svg {
   width: 100%;
-  height: 100%;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  margin: 0;
+  padding: 0;
+  background-color: #121212 !important;
 }
 
-.country-label {
+/* New styles for landing page */
+.landing-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.landing-page h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.enter-button {
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  background-color: #38385c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.enter-button:hover {
+  background-color: #45a049;
+}
+
+/* Reset some basic elements */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add this to your existing CSS */
+.country-name {
   position: fixed;
   top: 20px;
   left: 20px;
@@ -31,11 +67,10 @@
   border-radius: 4px;
   font-size: 18px;
   z-index: 1000;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 
-.back-button {
+.exit-button {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -47,31 +82,165 @@
   border: none;
   cursor: pointer;
   z-index: 1000;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
-.back-button:hover {
+.exit-button:hover {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-.country-info {
+/* Add these styles to your existing CSS */
+.dark {
+  background-color: #121212;
+}
+
+.dark .country-name {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.dark .exit-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.dark .exit-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Add these new styles */
+.theme-toggle-button {
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.dark .theme-toggle-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.dark .theme-toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.light {
+  background-color: #ffffff;
+}
+
+.light .theme-toggle-button {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.light .theme-toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.light .country-name,
+.light .exit-button {
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 20px;
+}
+
+.light .exit-button:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Add these new styles for the settings modal */
+.settings-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 10px 20px;
   border-radius: 4px;
-  z-index: 1000;
-  max-width: 300px;
-}
-
-.country-info h2 {
-  margin: 0 0 10px 0;
-  font-size: 24px;
-}
-
-.country-info p {
-  margin: 5px 0;
   font-size: 16px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.settings-modal {
+  background-color: #1a1a1a;
+  padding: 30px;
+  border-radius: 8px;
+  min-width: 300px;
+  color: white;
+}
+
+.settings-modal h2 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.settings-option label {
+  font-size: 16px;
+}
+
+.settings-option button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.settings-option button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Light mode styles for settings */
+.light .settings-button {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.light .settings-modal {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.light .settings-option button {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.light .settings-option button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 } 

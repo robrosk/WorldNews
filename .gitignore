@@ -9,3 +9,6 @@ build/
 
 # Ignore logs
 *.log
+
+# Ignore config.py
+config.py
